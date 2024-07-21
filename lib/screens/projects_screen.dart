@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_flutter/widgets/project_tile.dart';
+import 'package:todo_app_flutter/screens/add_project_screen.dart';
+import 'package:todo_app_flutter/widgets/projects_list.dart';
 
 class ProjectsScreen extends StatelessWidget {
   static const String id = 'project_screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => AddProjectScreen(),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
@@ -42,16 +56,8 @@ class ProjectsScreen extends StatelessWidget {
                 height: 20.0,
               ),
               Expanded(
-                  child: ListView(
-                children: const [
-                  ProjectTile(
-                    backgroundImage: AssetImage("images/background.jpg"),
-                  ),
-                  ProjectTile(
-                    backgroundImage: AssetImage("images/background1.jpg"),
-                  ),
-                ],
-              )),
+                child: ProjectList(),
+              ),
             ],
           ),
         ),
