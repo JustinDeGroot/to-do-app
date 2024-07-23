@@ -1,16 +1,9 @@
 # todo_app_flutter
 
-A new Flutter project.
+This is a project management / to-do app.
+It is a very simple project but the main goal of this project was to explore the design possibilies.
+I started this app while I was doing my flutter course, put it on ice and recently got back to it. Changed the cocept a list as it was a signle page to-do page. Now allowing the user to create projects and link tasks to each project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app comes with boiler plate projects and tasks to show the user how the app looks on-load. The data of the app does not currently persist. So a possible future itteration could see the use of firebase or sqflite.
