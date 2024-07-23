@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_flutter/models/project_data.dart';
 
+import '../widgets/background_image_tile.dart';
+
 class AddProjectScreen extends StatefulWidget {
   const AddProjectScreen({super.key});
 
@@ -12,6 +14,15 @@ class AddProjectScreen extends StatefulWidget {
 class _AddProjectScreenState extends State<AddProjectScreen> {
   String newProjectTitle = '';
   String backgroundImage = '';
+
+  List<String> backgroundImages = [
+    'background.jpg',
+    'background1.jpg',
+    'background2.jpg',
+    'background3.jpg',
+    'background4.jpg',
+    'background5.jpg',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -71,88 +82,20 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
             ),
             SizedBox(
               height: 60.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background.jpg';
-                      });
-                    },
-                    child: const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/background.jpg'),
-                    ),
-                  ),
-                  GestureDetector(
-                    child: const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/background1.jpg'),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background1.jpg';
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/background2.jpg'),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background2.jpg';
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/background3.jpg'),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background3.jpg';
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: backgroundImage == 'background4.jpg'
-                        ? const CircleAvatar(
-                            backgroundColor: Colors.green,
-                            radius: 55.0,
-                            child: CircleAvatar(
-                              radius: 50.0,
-                              backgroundImage:
-                                  AssetImage('images/background4.jpg'),
-                            ),
-                          )
-                        : const CircleAvatar(
-                            radius: 50.0,
-                            backgroundImage:
-                                AssetImage('images/background4.jpg'),
-                          ),
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background4.jpg';
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    child: const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('images/background5.jpg'),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        backgroundImage = 'background5.jpg';
-                      });
-                    },
-                  ),
-                ],
-              ),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: backgroundImages.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return BackgroundImageTile(
+                      chosenImage: backgroundImage,
+                      backgroundImage: backgroundImages[index],
+                      onTap: () {
+                        setState(() {
+                          backgroundImage = backgroundImages[index];
+                        });
+                      },
+                    );
+                  }),
             ),
             const SizedBox(
               height: 40.0,
@@ -164,6 +107,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                 onPressed: () {
                   print(backgroundImage);
                   print(newProjectTitle);
+
                   if (backgroundImage != '' && newProjectTitle != '') {
                     Provider.of<ProjectData>(context, listen: false)
                         .addProject(newProjectTitle, backgroundImage);

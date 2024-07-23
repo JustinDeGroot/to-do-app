@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app_flutter/models/project_data.dart';
 import '../models/task_data.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key});
+  const ProgressBar({super.key, required this.projectIndex});
+
+  final projectIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,11 @@ class ProgressBar extends StatelessWidget {
           ),
           height: 50.0,
           width: 12.0,
-          child: const RotatedBox(
+          child: RotatedBox(
             quarterTurns: -1,
             child: LinearProgressIndicator(
-              value: 0.7,
+              value: Provider.of<ProjectData>(context)
+                  .percentageCompleted(projectIndex),
               color: Colors.white,
               backgroundColor: Colors.transparent,
             ),
@@ -31,7 +35,8 @@ class ProgressBar extends StatelessWidget {
         Column(
           children: [
             Text(
-              '2/${Provider.of<TaskData>(context).taskCount}',
+              //'test',
+              '${Provider.of<ProjectData>(context).completedTaskCount(projectIndex)}/${Provider.of<ProjectData>(context).taskCount(projectIndex)}',
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,

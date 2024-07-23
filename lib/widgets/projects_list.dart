@@ -11,8 +11,10 @@ class ProjectList extends StatelessWidget {
         itemBuilder: (context, index) {
           final project = projectData.projects[index];
           return ProjectTile(
+            projectIndex: index,
             name: project.name,
             backgroundImage: AssetImage("images/${project.backgroundImage}"),
+            index: index,
           );
         },
         itemCount: projectData.projectCount,

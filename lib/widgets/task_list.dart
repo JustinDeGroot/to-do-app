@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_flutter/models/task_data.dart';
+import 'package:todo_app_flutter/models/project_data.dart';
 import 'package:todo_app_flutter/widgets/task_tile.dart';
 
 class TasksList extends StatelessWidget {
+  TasksList({required this.projectIndex});
+
+  final int projectIndex;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskData>(builder: (context, taskData, child) {
+    return Consumer<ProjectData>(builder: (context, projectData, child) {
       return ListView.builder(
         itemBuilder: (context, index) {
-          final task = taskData.tasks[index];
+          final task = projectData.projects[projectIndex].projectTasks[index];
           return TaskTile(
             taskTitle: task.name,
             isChecked: task.isDone,
             checkboxCallback: (value) {
-              taskData.finishTask(task);
+              //projectData.finishTask(task);
             },
             onTap: () {
-              taskData.finishTask(task);
+              projectData.finishTask(task);
             },
             longPress: () {
-              taskData.deleteTask(index);
+              projectData.deleteTaskFromProject(index, projectIndex);
             },
           );
         },
-        itemCount: taskData.taskCount,
+        itemCount: projectData.taskCount(projectIndex),
       );
     });
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app_flutter/models/project_data.dart';
 import 'package:todo_app_flutter/screens/add_project_screen.dart';
 import 'package:todo_app_flutter/widgets/projects_list.dart';
 
@@ -33,20 +35,20 @@ class ProjectsScreen extends StatelessWidget {
                   fontSize: 17.0,
                 ),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width: 150.0,
                     child: Text(
-                      'Your Projects (4)',
-                      style: TextStyle(
+                      'Your Projects (${Provider.of<ProjectData>(context).projectCount})',
+                      style: const TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40.0,
                     backgroundImage: AssetImage('images/background1.jpg'),
                   ),

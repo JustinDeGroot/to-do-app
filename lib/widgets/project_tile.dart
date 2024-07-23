@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app_flutter/models/project_data.dart';
 import 'package:todo_app_flutter/screens/tasks_screen.dart';
 import 'package:todo_app_flutter/widgets/progress_bar.dart';
 import '../screens/add_task_screen.dart';
 
 class ProjectTile extends StatelessWidget {
-  const ProjectTile({
-    super.key,
-    required this.backgroundImage,
-    required this.name,
-  });
+  const ProjectTile(
+      {super.key,
+      required this.backgroundImage,
+      required this.name,
+      required this.index,
+      required this.projectIndex});
   final String name;
   final AssetImage backgroundImage;
+  final int index;
+  final int projectIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,9 @@ class ProjectTile extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.only(left: 20.0, top: 30.0),
-            child: const ProgressBar(),
+            child: ProgressBar(
+              projectIndex: projectIndex,
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 15.0),
@@ -52,10 +59,8 @@ class ProjectTile extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      TasksScreen.id,
-                    );
+                    Navigator.pushNamed(context, TasksScreen.id,
+                        arguments: {'projectIndex': projectIndex});
                   },
                   child: Container(
                     margin: const EdgeInsets.only(
@@ -81,7 +86,9 @@ class ProjectTile extends StatelessWidget {
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
-                      builder: (context) => AddTaskScreen(),
+                      builder: (context) => AddTaskScreen(
+                        projectIndex: projectIndex,
+                      ),
                     );
                   },
                   child: Container(

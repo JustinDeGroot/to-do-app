@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_flutter/models/task_data.dart';
+import 'package:todo_app_flutter/models/project_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  AddTaskScreen({required this.projectIndex});
+
+  final int projectIndex;
+
   @override
   Widget build(BuildContext context) {
     String newTaskTitle = '';
@@ -46,8 +50,10 @@ class AddTaskScreen extends StatelessWidget {
                 onPressed: () {
                   //TasksScreen.newTasks;
                   //print(newTaskTitle);
-                  Provider.of<TaskData>(context, listen: false)
-                      .addTask(newTaskTitle);
+                  //Provider.of<TaskData>(context, listen: false)
+                  //    .addTask(newTaskTitle);
+                  Provider.of<ProjectData>(context, listen: false)
+                      .addTaskToProject(projectIndex, newTaskTitle);
                   Navigator.pop(context);
                 },
                 child: const Text(
